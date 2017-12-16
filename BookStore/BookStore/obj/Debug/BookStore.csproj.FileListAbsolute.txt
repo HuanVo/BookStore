@@ -88,3 +88,13 @@ D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\obj\Debug\BookStore.csproj
 D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\obj\Debug\BookStore.csproj.CoreCompileInputs.cache
 D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\obj\Debug\BookStore.dll
 D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\obj\Debug\BookStore.pdb
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\bin\DAL.dll
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\bin\DAO.dll
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\bin\EntityFramework.dll
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\bin\DAL.pdb
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\bin\DAL.dll.config
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\bin\DAO.pdb
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\bin\DAO.dll.config
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\bin\EntityFramework.xml
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\bin\EntityFramework.SqlServer.dll
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore\bin\EntityFramework.SqlServer.xml

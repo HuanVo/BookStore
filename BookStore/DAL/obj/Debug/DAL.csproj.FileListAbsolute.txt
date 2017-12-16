@@ -1,0 +1,11 @@
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAL\bin\Debug\DAL.dll.config
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAL\bin\Debug\DAL.dll
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAL\bin\Debug\DAL.pdb
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAL\bin\Debug\EntityFramework.dll
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAL\bin\Debug\EntityFramework.SqlServer.dll
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAL\bin\Debug\EntityFramework.xml
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAL\bin\Debug\EntityFramework.SqlServer.xml
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAL\obj\Debug\DAL.dll
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAL\obj\Debug\DAL.pdb

@@ -1,0 +1,14 @@
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\bin\Debug\DAO.dll.config
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\bin\Debug\DAO.dll
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\bin\Debug\DAO.pdb
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\bin\Debug\DAL.dll
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\bin\Debug\EntityFramework.dll
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\bin\Debug\EntityFramework.SqlServer.dll
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\bin\Debug\DAL.pdb
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\bin\Debug\DAL.dll.config
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\bin\Debug\EntityFramework.xml
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\bin\Debug\EntityFramework.SqlServer.xml
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\obj\Debug\DAO.csprojResolveAssemblyReference.cache
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\obj\Debug\DAO.csproj.CoreCompileInputs.cache
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\obj\Debug\DAO.dll
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\DAO\obj\Debug\DAO.pdb
