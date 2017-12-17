@@ -28,3 +28,4 @@
 12/17/2017 3:14:48 PM: The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
 12/17/2017 5:04:24 PM: LINQ to Entities does not recognize the method 'Boolean TimeMax(System.Nullable`1[System.DateTime], System.DateTime)' method, and this method cannot be translated into a store expression.
 12/17/2017 5:45:01 PM: Failure sending mail.
+12/17/2017 10:13:28 PM: Failure sending mail.

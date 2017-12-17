@@ -43,7 +43,7 @@ namespace BookStore.Controllers
                         String body = bodyTemp[0] + " " + email + "<br>" + bodyTemp[1] + " " + randPass + "<br>Xin cám ơn bạn đã sử dụng dịch vụ của chúng tôi!";
                         Services.SendMail(mail.from_address, email, mail.subjects, body, "huanit1237");
                         // Redirect to finish memnitor
-                        return RedirectToAction("FinishHome", "ResetPassword");
+                        return RedirectToAction("Index", "Login");
                         // redirect to interface finish
                     }
                     else

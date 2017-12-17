@@ -34,7 +34,8 @@ namespace BookStore.Controllers
                 String userName = (String)Session[Constancs.USER_SESSION];
                 if(userName != "")
                 {
-                    if (UserDAO.Instance.IsUserWithCookie(userName, cookieString, model.oldPass))
+                    String oldMail = Services.MD5Hash(Constancs.SALT + model.oldPass);
+                    if (UserDAO.Instance.IsUserWithCookie(userName, cookieString,oldMail))
                     {
                         if (model.newPass == model.cfmPass)
                         {

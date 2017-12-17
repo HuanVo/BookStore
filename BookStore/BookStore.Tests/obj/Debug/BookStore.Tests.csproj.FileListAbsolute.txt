@@ -1,0 +1,2 @@
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore.Tests\obj\Debug\BookStore.Tests.csprojResolveAssemblyReference.cache
+D:\OneDrive\INTERSHIP\DemoProject\BookStore\BookStore.Tests\obj\Debug\BookStore.Tests.csproj.CoreCompileInputs.cache
