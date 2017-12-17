@@ -25,3 +25,6 @@
 12/17/2017 3:47:48 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
 12/17/2017 3:47:51 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
 12/17/2017 9:02:36 AM: LINQ to Entities does not recognize the method 'System.DateTime ToDateTime(System.Object)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:14:48 PM: The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+12/17/2017 5:04:24 PM: LINQ to Entities does not recognize the method 'Boolean TimeMax(System.Nullable`1[System.DateTime], System.DateTime)' method, and this method cannot be translated into a store expression.
+12/17/2017 5:45:01 PM: Failure sending mail.

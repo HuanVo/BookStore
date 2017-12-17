@@ -1,0 +1,42 @@
+﻿
+@model BookStore.Models.ResetPasswordModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ResetPassword</title>
+    <link rel="stylesheet" href="~/Content/Client/css/bootstrap.css" />
+</head>
+<body>
+    <img src="~/Content/Client/image/logo.png" style="margin: auto; margin-top: 3%; display:block">
+    <div id="border-out">
+        <div style="margin: 5% 10% 5% 10%">
+            <br>
+            <h6>WEB order service <a href="#">for distributos</a></h6>
+            <h6>Forgot password</h6><br>
+            <div class="text-size">We reset the password and we will contact you via temporary password.</div>
+            <div class="text-size">Please anter the email registered in this system.</div><br>
+            @using (Html.BeginForm("ResetPass", "ResetPassword", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div>
+                    @Html.TextBoxFor(model => model.email, new { @class = "form-control", @type ="email", @autofocus = "autofocus", @placeholder = "enter your email to reset password" })
+                    @*<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">*@
+                </div>
+               <small>@Html.ValidationSummary(false, "", "error")</small>
+                <br>
+                <div class="text-size" style="text-align:left">
+                        * After issuing the temporary password,
+                        please change the password after logging in with the temporary password.
+                    
+                </div>
+                <div class="text-size" style="text-align:left">
+                    * Please note that you can not send e-mail if the entered e-mail addess is incorrect.
+                </div><br>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+            }
+        </div>
+    </div>
+</body>
+</html>

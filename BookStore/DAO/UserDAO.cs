@@ -84,10 +84,11 @@ namespace DAO
         {
             try
             {
-                expiresTimeConfig = 0;
+                // chua hoan thanh so sanh gio
+                DateTime otherDate = DateTime.Now.AddMinutes(-expiresTimeConfig);
                 var result = (from a in db.USERS
                               join b in db.CUSTOMERs on a.code_cst equals b.code_cst
-                              where b.dest_flg == 0 && a.dest_flg == 0 &&  a.login_id == loginId && a.cnt_login_error>cntLoginConfig 
+                              where b.dest_flg == 0 && a.dest_flg == 0 &&  a.login_id == loginId && a.date_login_error != null && a.cnt_login_error<cntLoginConfig ||  a.date_login_error > otherDate 
                               select a.code_cst).Count();
                 if (result > 0)
                     return true;
@@ -98,6 +99,7 @@ namespace DAO
             }
             return false;
         }
+
 
         public void UpdateCountLoginAndDateLoginError(String loginId)
         {
@@ -141,6 +143,102 @@ namespace DAO
         {
             if (db.USERS.Where(x => x.login_id == userName).Count() > 0)
                 return true;
+            return false;
+        }
+
+        public bool IsUserWithCookie(String userName, String cookieString, String oldPass)
+        {
+            try
+            {
+                var result = (from a in db.USERS
+                              join b in db.CUSTOMERs on a.code_cst equals b.code_cst
+                              where a.login_id == userName && a.dest_flg == 0 && b.dest_flg == 0 && a.login_pass == oldPass && a.loginkey == cookieString
+                              select a.code_cst).Count();
+                if (result > 0)
+                    return true;
+            }
+            catch(Exception ex)
+            {
+                ErrorLog.WriteLog(ex.Message);
+            }
+            return false;
+        }
+
+        public bool UpdateNewPassword(String userName, String newPassword)
+        {
+            try
+            {
+                var check = db.USERS.Find(userName);
+                if (check != null)
+                {
+                    check.login_pass = newPassword;
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.WriteLog(ex.Message);
+            }
+            return false;
+        }
+
+        public String GetMailById(String mailId)
+        {
+            String mail = "";
+            try
+            {
+                mail = db.USERS.Find(mailId).mail;
+            }
+            catch(Exception ex)
+            {
+                ErrorLog.WriteLog(ex.Message);
+            }
+            return mail;
+        }
+
+        /// <summary>
+        /// Check email to send email reset password
+        /// </summary>
+        /// <param name="email">email input</param>
+        /// <returns>get bool value true if is email else false if not email</returns>
+        public bool IsEmail(String email)
+        {
+            try
+            {
+                var result = (from a in db.USERS
+                              join b in db.CUSTOMERs on a.code_cst equals b.code_cst
+                              where a.dest_flg == 0 && b.dest_flg == 0 && a.mail == email
+                              select a.code_cst).Count();
+                if (result > 0)
+                    return true;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.WriteLog(ex.Message);
+            }
+            return false;
+            
+        }
+
+        public bool UpdatePassReset(String loginId, String newPass)
+        {
+            try
+            {
+                var check = db.USERS.Find(loginId);
+                if (check != null)
+                {
+                    check.login_pass = newPass;
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.WriteLog(ex.Message);
+            }
             return false;
         }
       

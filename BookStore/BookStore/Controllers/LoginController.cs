@@ -24,7 +24,7 @@ namespace BookStore.Controllers
                 // check valid user login
                 if (UserDAO.Instance.IsUser(model.userName))
                 {
-                    String password = Encryptor.MD5Hash(Constancs.SALT + model.password);
+                    String password = Services.MD5Hash(Constancs.SALT + model.password);
                     // check valid control login
                     if (Convert.ToInt32(SystemDAO.Instance.GetValueConfigById(1)) == 0)
                     {
@@ -59,6 +59,7 @@ namespace BookStore.Controllers
                 }
 
             }
+            
             return View("Index");
         }
         public bool _Login(String name, String password)
@@ -67,10 +68,12 @@ namespace BookStore.Controllers
             {
                 //create cookie
                 String timeNow = DateTime.Now.ToString("yyyy-mm-dd hh:mi:ss.mmm");
-                String cookieString = Encryptor.MD5Hash(name + password + timeNow);
+                String cookieString = Services.MD5Hash(name + password + timeNow);
 
                 // Save cookie to browser.
                 int configValue = Convert.ToInt32(SystemDAO.Instance.GetValueConfigById(21));
+                // save Session User
+                Session.Add(Constancs.USER_SESSION, name);
                 SaveCookieToBrowser("m", cookieString, configValue);
 
                 // save cookie to db
@@ -95,7 +98,10 @@ namespace BookStore.Controllers
             cookieLogin.Expires = DateTime.Now.AddDays(expires);
 
             Response.Cookies.Add(cookieLogin);
+            
         }
+
+        
 
     }
 }

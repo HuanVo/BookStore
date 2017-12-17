@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commons\ErrorLog.cs" />
+    <Compile Include="MailDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemDAO.cs" />
     <Compile Include="UserDAO.cs" />
