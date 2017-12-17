@@ -1,0 +1,27 @@
+12/16/2017 6:10:29 PM: Unable to create a constant value of type 'System.Object'. Only primitive types or enumeration types are supported in this context.
+12/16/2017 6:10:38 PM: Unable to create a constant value of type 'System.Object'. Only primitive types or enumeration types are supported in this context.
+12/16/2017 6:10:46 PM: Unable to create a constant value of type 'System.Object'. Only primitive types or enumeration types are supported in this context.
+12/16/2017 6:13:30 PM: Unable to create a constant value of type 'System.Object'. Only primitive types or enumeration types are supported in this context.
+12/16/2017 6:16:36 PM: Unable to create a constant value of type 'System.Object'. Only primitive types or enumeration types are supported in this context.
+12/16/2017 6:18:49 PM: Unable to create a constant value of type 'System.Object'. Only primitive types or enumeration types are supported in this context.12/17/2017 3:30:57 AM: LINQ to Entities does not recognize the method 'System.DateTime ToDateTime(System.Object)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:31:32 AM: LINQ to Entities does not recognize the method 'System.DateTime ToDateTime(System.Object)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:31:43 AM: LINQ to Entities does not recognize the method 'System.DateTime ToDateTime(System.Object)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:32:04 AM: LINQ to Entities does not recognize the method 'System.DateTime ToDateTime(System.Object)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:32:07 AM: LINQ to Entities does not recognize the method 'System.DateTime ToDateTime(System.Object)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:32:11 AM: LINQ to Entities does not recognize the method 'System.DateTime ToDateTime(System.Object)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:32:15 AM: LINQ to Entities does not recognize the method 'System.DateTime ToDateTime(System.Object)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:32:18 AM: LINQ to Entities does not recognize the method 'System.DateTime ToDateTime(System.Object)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:35:20 AM: LINQ to Entities does not recognize the method 'System.DateTime ToDateTime(System.Object)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:39:05 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:39:10 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:39:16 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:43:57 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:46:35 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:47:37 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:47:41 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:47:43 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:47:44 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:47:46 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:47:48 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
+12/17/2017 3:47:51 AM: LINQ to Entities does not recognize the method 'Int32 ToInt32(Int32)' method, and this method cannot be translated into a store expression.
+12/17/2017 9:02:36 AM: LINQ to Entities does not recognize the method 'System.DateTime ToDateTime(System.Object)' method, and this method cannot be translated into a store expression.

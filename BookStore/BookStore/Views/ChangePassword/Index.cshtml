@@ -1,0 +1,58 @@
+﻿
+@model BookStore.Models.ChangePassMode
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Change Password</title>
+    <link rel="stylesheet" href="~/Content/Client/css/bootstrap.css" />
+</head>
+<body>
+    <nav style="background-color:#FFFFFF !important;">
+        <a class="navbar-brand" href="#"><img src="~/Asset/images/Capture.png"></a> WEB order service <a href="#">for distributors</a>
+        <ul style="float:right !important; list-style-type:none; margin-right: 2%">
+            <li class="navli"><a href="#"><strong>My page</strong></a></li>
+            <li class="navli"><a href="#"><strong>New Order Entry</strong></a></li>
+            <li class="navli"><a href="#"><strong>Order history modification cancellation</strong></a></li>
+            <li class="navli"><a href="#"><strong>Login password change </strong></a></li>
+            <li class="navli"><a href="#"><strong>Logout</strong></a></li>
+            <li><small style="float:right">Co., Ltd. Sanrofuto like</small></li>
+        </ul>
+    </nav>
+    <div style="width:100%;height: 40px;background-color:#009dea;box-shadow:0 3px #39a0d2;">
+        <div style="color:white; margin-left:2%"><img src="~/Asset/images/user.PNG"><a>Logging password change</a></div>
+    </div>
+    <div id="border-out" style="background-color:#F7F7F7; margin-top:3%;">
+       @using (Html.BeginForm("ChangePass", "ChangePassword", FormMethod.Post))
+       {
+        @Html.AntiForgeryToken()
+            <div class="form-group">
+                <strong><label for="old-password">Old Password</label></strong>
+                @Html.TextBoxFor(model => model.oldPass, new { @class = "form-control", @style = "width: 70%", @type = "password", @id = "old-password", @autofocus = "autofocus" })
+                @*<input style="width: 70%" type="password" class="form-control" id="old-password" aria-describedby="old-password-help">*@
+                <small id="old-password-help" class="form-text text-muted">Please enter with 4-6 letters</small>
+            </div>
+            <div class="form-group">
+                <strong><label for="old-password">New Password</label></strong>
+                @Html.TextBoxFor(model => model.newPass, new { @class = "form-control", @style = "width: 70%", @type = "password", @id = "new-password", @autofocus = "autofocus" })
+                @*<input style="width: 70%" type="password" class="form-control" id="new-password" aria-describedby="new-password-help">*@
+                <small id="new-password-help" class="form-text text-muted">Please enter with 4-6 letters</small>
+            </div>
+            <div class="form-group">
+                <strong><label for="old-password">Confirm Password</label></strong>
+                @Html.TextBoxFor(model => model.cfmPass, new { @class = "form-control", @style = "width: 70%", @type = "password", @id = "Confirm-password", @autofocus = "autofocus" })
+                @*<input style="width: 70%" type="password" class="form-control" id="Confirm-password" aria-describedby="Confirm-password-help">*@
+                <small id="Confirm-password-help" class="form-text text-muted">Please enter with 4-6 letters</small>
+            </div>
+            @Html.ValidationSummary(false, "", "error");
+            <div class="form-group">
+                <button style="width:70%; display:block" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            
+       }
+        <div style="margin-top: 20%; text-align:center"><small class="form-text text-muted">Copyright c 2017 SEIRIN CORPORATION All rights reserved</small></div>
+    </div>
+</body>
+</html>
+
