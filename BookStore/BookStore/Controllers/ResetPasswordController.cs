@@ -35,7 +35,7 @@ namespace BookStore.Controllers
                     //hashing new password
                     String newPassword = Services.MD5Hash(Constancs.SALT + randPass.ToString());
                     // update to db
-                    if (UserDAO.Instance.UpdatePassReset(email, newPassword))
+                    if (UserDAO.Instance.UpdateNewPassword(email, newPassword))
                     {
                         // send email
                         MAIL mail = MailDAO.Instance.GetInfo(1);
@@ -44,14 +44,12 @@ namespace BookStore.Controllers
                         Services.SendMail(mail.from_address, email, mail.subjects, body, "huanit1237");
                         // Redirect to finish memnitor
                         return RedirectToAction("Index", "Login");
-                        // redirect to interface finish
                     }
                     else
                     {
                         ModelState.AddModelError("", "Không thể gửi mail");
                         return View("Index");
                     }
-
                 }
                 else
                 {

@@ -76,10 +76,17 @@ namespace DAO
 
             }catch(Exception ex)
             {
+                // Save error to a file log
                 ErrorLog.WriteLog(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Check status number login fail
+        /// </summary>
+        /// <param name="loginId">login id</param>
+        /// <param name="cntLoginConfig">count login System config</param>
+        /// <param name="expiresTimeConfig">Time expires lock</param>
+        /// <returns>Get bool value status Login fail</returns>
         public bool CheckNumLoginFail(String loginId, int cntLoginConfig, int expiresTimeConfig)
         {
             try
@@ -100,7 +107,10 @@ namespace DAO
             return false;
         }
 
-
+        /// <summary>
+        /// Update count login and date login error 
+        /// </summary>
+        /// <param name="loginId">id user login</param>
         public void UpdateCountLoginAndDateLoginError(String loginId)
         {
             try
@@ -112,14 +122,17 @@ namespace DAO
                     check.cnt_login_error = check.cnt_login_error + 1;
                     db.SaveChanges();
                 }
-
             }
             catch (Exception ex)
             {
+                // save error to a file log
                 ErrorLog.WriteLog(ex.Message);
             }
         }
-
+        /// <summary>
+        /// reset date login error and count login error to default value
+        /// </summary>
+        /// <param name="loginId">id user login</param>
         public void ResetCountLoginAndDateLoginError(String loginId)
         {
             try
@@ -131,14 +144,17 @@ namespace DAO
                     check.cnt_login_error = 0;
                     db.SaveChanges();
                 }
-
             }
             catch (Exception ex)
             {
                 ErrorLog.WriteLog(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Check isset user login
+        /// </summary>
+        /// <param name="userName">id login user</param>
+        /// <returnsget bool value></returns>
         public bool IsUser(String userName)
         {
             if (db.USERS.Where(x => x.login_id == userName).Count() > 0)
@@ -163,7 +179,12 @@ namespace DAO
             }
             return false;
         }
-
+        /// <summary>
+        /// Update pass
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
         public bool UpdateNewPassword(String userName, String newPassword)
         {
             try
@@ -184,12 +205,17 @@ namespace DAO
             return false;
         }
 
-        public String GetMailById(String mailId)
+        /// <summary>
+        /// Get email by id user login
+        /// </summary>
+        /// <param name="userId">id user login</param>
+        /// <returns>Get a String value  email</returns>
+        public String GetMailById(String userId)
         {
             String mail = "";
             try
             {
-                mail = db.USERS.Find(mailId).mail;
+                mail = db.USERS.Find(userId).mail;
             }
             catch(Exception ex)
             {
@@ -220,26 +246,6 @@ namespace DAO
             }
             return false;
             
-        }
-
-        public bool UpdatePassReset(String loginId, String newPass)
-        {
-            try
-            {
-                var check = db.USERS.Find(loginId);
-                if (check != null)
-                {
-                    check.login_pass = newPass;
-                    db.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.WriteLog(ex.Message);
-            }
-            return false;
         }
       
     }

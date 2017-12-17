@@ -35,7 +35,7 @@ namespace BookStore.Controllers
                 if(userName != "")
                 {
                     String oldMail = Services.MD5Hash(Constancs.SALT + model.oldPass);
-                    if (UserDAO.Instance.IsUserWithCookie(userName, cookieString,oldMail))
+                    if (UserDAO.Instance.IsUserWithCookie(userName, cookieString, oldMail))
                     {
                         if (model.newPass == model.cfmPass)
                         {
@@ -64,23 +64,26 @@ namespace BookStore.Controllers
                         }
                     }
                     else
+                    {
                         ModelState.AddModelError("", "Truy cập trái phép");
+                    }
                 }
             }
             return View("Index");
         }
-
+        /// <summary>
+        /// Get cookie from browser
+        /// </summary>
+        /// <param name="cookieName">cookie name</param>
+        /// <returns>Get a String Value cookie</returns>
         private String GetCookieFromBowser(String cookieName)
         {
             //Fetch the Cookie using its Key.
             HttpCookie nameCookie = Request.Cookies[cookieName];
 
             //If Cookie exists fetch its value.
-            string Values = nameCookie != null ? nameCookie.Value : "undefined";
-            return Values;
+            string values = nameCookie != null ? nameCookie.Value : "undefined";
+            return values;
         }
-
-
-        
     }
 }
