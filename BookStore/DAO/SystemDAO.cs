@@ -7,22 +7,22 @@ using DAL;
 using BookStore.Commons;
 namespace DAO
 {
-    public class SystemDAO
+    public class SystemDao
     {
         BookStoreDbContext db = null;
-        private static SystemDAO instance;
+        private static SystemDao instance;
 
-        public static SystemDAO Instance
+        public static SystemDao Instance
         {
             get
             { if (instance == null)
-                    instance = new SystemDAO();
+                    instance = new SystemDao();
                 return instance;
             }
             private set { instance = value; }
         }
 
-        private SystemDAO()
+        private SystemDao()
         {
             db = new BookStoreDbContext();
         }

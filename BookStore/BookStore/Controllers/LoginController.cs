@@ -22,14 +22,14 @@ namespace BookStore.Controllers
             if (ModelState.IsValid)
             {
                 // check valid user login
-                if (UserDAO.Instance.IsUser(model.userName))
+                if (UserDao.Instance.IsUser(model.userName))
                 {
-                    String password = Services.MD5Hash(Constancs.SALT + model.password);
+                    String password = Services.Md5Hash(Constancs.SALT + model.password);
                     // check valid control login
-                    if (Convert.ToInt32(SystemDAO.Instance.GetValueConfigById(1)) == 0)
+                    if (Convert.ToInt32(SystemDao.Instance.GetValueConfigById(Constancs.SYSTEM_CONFIG_STATUS_LOCK)) == 0)
                     {
                         //check locked of user
-                        if (UserDAO.Instance.CheckNumLoginFail(model.userName, Convert.ToInt32(SystemDAO.Instance.GetValueConfigById(2)), Convert.ToInt32(SystemDAO.Instance.GetValueConfigById(3))))
+                        if (UserDao.Instance.CheckNumLoginFail(model.userName, Convert.ToInt32(SystemDao.Instance.GetValueConfigById(Constancs.SYSTEM_CONFIG_COUNT_LOCK)), Convert.ToInt32(SystemDao.Instance.GetValueConfigById(Constancs.SYSTEM_CONFIG_TIME_LOCK))))
                         {
                             ModelState.AddModelError("", "Acount đang bị lock Hãy đợi một lác rồi login lại nhé");
                         }
@@ -38,14 +38,14 @@ namespace BookStore.Controllers
                             if (_Login(model.userName, password))
                             {
                                 // reset cnt_login_error. date_login_error
-                                UserDAO.Instance.ResetCountLoginAndDateLoginError(model.userName);
+                                UserDao.Instance.ResetCountLoginAndDateLoginError(model.userName);
                                 // redirect to Home page
                                 return RedirectToAction("Index", "Home");
                             }
                             else
                             {
                                 ModelState.AddModelError("", "LoginID hoặc password không chính xác");
-                                UserDAO.Instance.UpdateCountLoginAndDateLoginError(model.userName);
+                                UserDao.Instance.UpdateCountLoginAndDateLoginError(model.userName);
                                 return View("Index");
                             }
                         }
@@ -64,20 +64,17 @@ namespace BookStore.Controllers
         }
         public bool _Login(String name, String password)
         {
-            if(UserDAO.Instance.Login(name, password))
+            if(UserDao.Instance.Login(name, password))
             {
                 //create cookie
                 String timeNow = DateTime.Now.ToString("yyyy-mm-dd hh:mi:ss.mmm");
-                String cookieString = Services.MD5Hash(name + password + timeNow);
+                String cookieString = Services.Md5Hash(name + password + timeNow);
 
                 // Save cookie to browser.
-                int configValue = Convert.ToInt32(SystemDAO.Instance.GetValueConfigById(21));
-                // save Session User
-                Session.Add(Constancs.USER_SESSION, name);
+                int configValue = Convert.ToInt32(SystemDao.Instance.GetValueConfigById(Constancs.SYSTEM_CONFIG_EXPIRES_COOKIE));
                 SaveCookieToBrowser("m", cookieString, configValue);
-
                 // save cookie to db
-                UserDAO.Instance.SaveCookieToDB(name, cookieString);
+                UserDao.Instance.SaveCookieToDb(name, cookieString);
                 
                 return true;
             }
@@ -92,7 +89,6 @@ namespace BookStore.Controllers
         private void SaveCookieToBrowser(String cookieName, String cookieValue, int expires)
         {
             HttpCookie cookieLogin = new HttpCookie(cookieName);
-
             cookieLogin.Value = cookieValue;
 
             cookieLogin.Expires = DateTime.Now.AddDays(expires);

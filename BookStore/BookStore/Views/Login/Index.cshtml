@@ -1,21 +1,4 @@
 ﻿@model BookStore.Models.LoginModel
-<!doctype html>
-<html>
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <meta name="viewport" content="width=device-width" />
-    <title>index</title>
-    <link rel="stylesheet" href="~/Content/Client/css/bootstrap.css" />
-    <style>
-        .validation-summary-errors ul {
-            list-style-type: none;
-            color: red;
-            padding: 0;
-        }
-    </style> 
-</head>
-<body>
     <img src="~/Content/Client/image/logo.png" style="margin: 20px auto; display:block; width: 200px; height: auto">
     <div id="border-out">
         <div style="margin: 0 10% 5% 10%">
@@ -37,10 +20,10 @@
                     @Html.PasswordFor(model =>model.password, new { @class = "form-control", @placeholder = "password" })
                     <!--<input type="password" class="form-control" id="exampleinputpassword1" placeholder="password">-->
                 </div>
-               @Html.ValidationSummary(false, "", "error");
+               @Html.ValidationSummary(false, "", "error")
                 <div class="text-size" style="text-align:left">if you forget your password. we will re-issue your temporary password.</div>
                 <div class="text-size" style="text-align:left">
-                    <a href="http://localhost:58650/ResetPassword/Index">please click here and</a>
+                   @Html.ActionLink("please click here and","Index", "ResetPassword", null, null)
                     enter the registered e-mail. when you can confirm the system, send a temporary password
                     to the entered mail address.
                 </div><br>
@@ -48,5 +31,5 @@
             }
         </div>
     </div>
-</body>
-</html>
+@*</body>
+</html>*@

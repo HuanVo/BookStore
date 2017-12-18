@@ -15,11 +15,14 @@ namespace BookStore.Controllers
         // GET: ResetPassword
         public ActionResult Index()
         {
+            ViewBag.title = "Reset password";
             return View();
         }
         
         public ActionResult FinishHome()
         {
+
+            ViewBag.title = "finish home";
             return View();
         }
         public ActionResult ResetPass(ResetPasswordModel model)
@@ -28,17 +31,17 @@ namespace BookStore.Controllers
             {
                 String email = model.email;
                 //// creates a 8 digit random
-                if(UserDAO.Instance.IsEmail(email))
+                if(UserDao.Instance.IsEmail(email))
                 {
                     Random rnd = new Random();
                     int randPass = rnd.Next(10000000, 99999999);
                     //hashing new password
-                    String newPassword = Services.MD5Hash(Constancs.SALT + randPass.ToString());
+                    String newPassword = Services.Md5Hash(Constancs.SALT + randPass.ToString());
                     // update to db
-                    if (UserDAO.Instance.UpdateNewPassword(email, newPassword))
+                    if (UserDao.Instance.UpdateNewPassword(email, newPassword))
                     {
                         // send email
-                        MAIL mail = MailDAO.Instance.GetInfo(1);
+                        MAIL mail = MailDao.Instance.GetInfo(Constancs.MAIL_ID_RESET_PASSWORD);
                         String[] bodyTemp = mail.body.Split('-');
                         String body = bodyTemp[0] + " " + email + "<br>" + bodyTemp[1] + " " + randPass + "<br>Xin cám ơn bạn đã sử dụng dịch vụ của chúng tôi!";
                         Services.SendMail(mail.from_address, email, mail.subjects, body, "huanit1237");

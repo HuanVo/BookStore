@@ -4,32 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Security.Cryptography.X509Certificates;
 using DAL;
 using BookStore.Commons;
 
 namespace DAO
 {
-    public class UserDAO
+    public class UserDao
     {
-        BookStoreDbContext db = null;
+        private BookStoreDbContext db = null;
         /// <summary>
         /// create instance for UserDAO
         /// </summary>
-        private static UserDAO instance;
-        public static UserDAO Instance
+        private static UserDao instance;
+
+        public static UserDao Instance
         {
             get
             {
-                if (instance == null) instance = new UserDAO();
-                return UserDAO.instance;
+                if (instance == null) instance = new UserDao();
+                return UserDao.instance;
             }
-            private set { UserDAO.instance = value; }
+            private set { UserDao.instance = value; }
         }
 
         /// <summary>
         /// Contrustor
         /// </summary>
-        private UserDAO()
+        private UserDao()
         {
             db = new BookStoreDbContext();
         }
@@ -46,40 +48,42 @@ namespace DAO
             {
                 var result = (from a in db.USERS
                               join b in db.CUSTOMERs on a.code_cst equals b.code_cst
-                              where a.login_id == userName && a.login_pass == password && b.dest_flg == 0 && a.dest_flg == 0 && a.use_flg ==0 
+                              where a.login_id == userName && a.login_pass == password && b.dest_flg == 0 && a.dest_flg == 0 && a.use_flg == 0
                               select a.code_cst).Count();
                 if (result > 0)
                     return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.WriteLog(ex.Message);
             }
             return false;
         }
-        
+
         /// <summary>
         /// save cookie to database
         /// </summary>
         /// <param name="loginId">Login id</param>
         /// <param name="cookieString">cookie</param>
-        public void SaveCookieToDB(String loginId, String cookieString)
+        public void SaveCookieToDb(String loginId, String cookieString)
         {
             try
             {
                 var check = db.USERS.Find(loginId);
-                if(check !=null)
+                if (check != null)
                 {
                     check.loginkey = cookieString;
                     db.SaveChanges();
                 }
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 // Save error to a file log
                 ErrorLog.WriteLog(ex.Message);
             }
         }
+
         /// <summary>
         /// Check status number login fail
         /// </summary>
@@ -95,7 +99,7 @@ namespace DAO
                 DateTime otherDate = DateTime.Now.AddMinutes(-expiresTimeConfig);
                 var result = (from a in db.USERS
                               join b in db.CUSTOMERs on a.code_cst equals b.code_cst
-                              where b.dest_flg == 0 && a.dest_flg == 0 &&  a.login_id == loginId && a.date_login_error != null && a.cnt_login_error<cntLoginConfig ||  a.date_login_error > otherDate 
+                              where b.dest_flg == 0 && a.dest_flg == 0 && a.login_id == loginId && a.date_login_error != null && a.cnt_login_error > cntLoginConfig && a.date_login_error > otherDate
                               select a.code_cst).Count();
                 if (result > 0)
                     return true;
@@ -129,6 +133,7 @@ namespace DAO
                 ErrorLog.WriteLog(ex.Message);
             }
         }
+
         /// <summary>
         /// reset date login error and count login error to default value
         /// </summary>
@@ -150,11 +155,12 @@ namespace DAO
                 ErrorLog.WriteLog(ex.Message);
             }
         }
+
         /// <summary>
         /// Check isset user login
         /// </summary>
         /// <param name="userName">id login user</param>
-        /// <returnsget bool value></returns>
+        /// <returns>get bool value</returns>
         public bool IsUser(String userName)
         {
             if (db.USERS.Where(x => x.login_id == userName).Count() > 0)
@@ -162,34 +168,41 @@ namespace DAO
             return false;
         }
 
-        public bool IsUserWithCookie(String userName, String cookieString, String oldPass)
+        /// <summary>
+        /// Check user isset with Cookie and pass
+        /// </summary>
+        /// <param name="cookieString">Cookie</param>
+        /// <param name="oldPass">Password</param>
+        /// <returns>boolean type - Status user</returns>
+        public bool IsUserWithCookie(String cookieString, String oldPass)
         {
             try
             {
                 var result = (from a in db.USERS
                               join b in db.CUSTOMERs on a.code_cst equals b.code_cst
-                              where a.login_id == userName && a.dest_flg == 0 && b.dest_flg == 0 && a.login_pass == oldPass && a.loginkey == cookieString
+                              where a.dest_flg == 0 && b.dest_flg == 0 && a.login_pass == oldPass && a.loginkey == cookieString
                               select a.code_cst).Count();
                 if (result > 0)
                     return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.WriteLog(ex.Message);
             }
             return false;
         }
+
         /// <summary>
         /// Update pass
         /// </summary>
-        /// <param name="userName"></param>
+        /// <param name="mail">Email user</param>
         /// <param name="newPassword"></param>
-        /// <returns></returns>
-        public bool UpdateNewPassword(String userName, String newPassword)
+        /// <returns>boolean type - status update password</returns>
+        public bool UpdateNewPassword(String mail, String newPassword)
         {
             try
             {
-                var check = db.USERS.Find(userName);
+                var check = db.USERS.FirstOrDefault(x => x.mail == mail);
                 if (check != null)
                 {
                     check.login_pass = newPassword;
@@ -206,22 +219,29 @@ namespace DAO
         }
 
         /// <summary>
-        /// Get email by id user login
+        /// Update new password with cookie user
         /// </summary>
-        /// <param name="userId">id user login</param>
-        /// <returns>Get a String value  email</returns>
-        public String GetMailById(String userId)
+        /// <param name="cookie">Cookie</param>
+        /// <param name="newPassword">New password</param>
+        /// <returns> boolean type - status update password</returns>
+        public bool UpdateNewPasswordWithCookie(String cookie, String newPassword)
         {
-            String mail = "";
             try
             {
-                mail = db.USERS.Find(userId).mail;
+                var check = db.USERS.FirstOrDefault(x => x.loginkey == cookie);
+                if (check != null)
+                {
+                    check.login_pass = newPassword;
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.WriteLog(ex.Message);
             }
-            return mail;
+            return false;
         }
 
         /// <summary>
@@ -245,8 +265,28 @@ namespace DAO
                 ErrorLog.WriteLog(ex.Message);
             }
             return false;
-            
+
         }
-      
+
+        /// <summary>
+        /// Get user by cookie
+        /// </summary>
+        /// <param name="cookie">cookie string</param>
+        /// <returns>USER value</returns>
+        public USER GetUserByCookie(String cookie)
+        {
+            USER user = null;
+            try
+            {
+                user = db.USERS.FirstOrDefault(x => x.loginkey == cookie);
+            }
+            catch (Exception e)
+            {
+                ErrorLog.WriteLog(e.Message);
+            }
+            return user;
+
+        }
+
     }
 }

@@ -7,22 +7,22 @@ using System.Threading.Tasks;
 using BookStore.Commons;
 namespace DAO
 {
-    public class MailDAO
+    public class MailDao
     {
         BookStoreDbContext db = null;
-        private static MailDAO instance;
+        private static MailDao instance;
 
-        public static MailDAO Instance
+        public static MailDao Instance
         {
             get{
-                if (instance == null)
-                    instance = new MailDAO();
+                if(instance == null)
+                    instance = new MailDao();
                 return instance;
             }
            private  set { instance = value; }
         }
 
-        private MailDAO()
+        private MailDao()
         {
             db = new BookStoreDbContext();
         }
@@ -39,7 +39,5 @@ namespace DAO
             }
             return mailInfo;
         }
-        
     }
-    
 }
