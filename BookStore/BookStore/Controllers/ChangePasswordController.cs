@@ -9,57 +9,68 @@ using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
 using BookStore.ViewModels;
-
-
+using System.Web.Configuration;
 
 namespace BookStore.Controllers
 {
+
+
+
+
+    [LoginSession]
     public class ChangePasswordController : Controller
     {
         // GET: ChangePassword
+
+        //[LoginSession]
         public ActionResult Index()
         {
-            String cookieString = GetCookieFromBowser(Constancs.COOKIE_NAME);
-            if (cookieString != "")
-            {
-
-                ViewBag.Title = "Change password";
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index", "Login");
-            }
+            ViewBag.Title = "Change password";
+            return View();
         }
-
         public ActionResult FishHome()
         {
             ViewBag.Title = "Change password";
             return View();
         }
-
+        
         public ActionResult ChangePass(ChangePassMode model)
         {
             if (ModelState.IsValid)
             {
                 // get cookie from browser
-                String cookieString = GetCookieFromBowser(Constancs.COOKIE_NAME);
+                String cookieString = GetCookieFromBowser(Constants.COOKIE_NAME);
 
-                String oldMail = Services.Md5Hash(Constancs.SALT + model.oldPass);
-                if (UserDao.Instance.IsUserWithCookie(cookieString, oldMail))
+                String oldPass = Services.Md5Hash(Constants.SALT + model.oldPass);
+                if (UserDao.Instance.IsUserWithCookie(cookieString, oldPass))
                 {
                     if (model.newPass == model.cfmPass)
                     {
-                        String password = Services.Md5Hash(Constancs.SALT + model.newPass);
+                        String password = Services.Md5Hash(Constants.SALT + model.newPass);
                         // save new password
                         if (UserDao.Instance.UpdateNewPasswordWithCookie(cookieString, password))
                         {
                             // sent mail
                             USER user = UserDao.Instance.GetUserByCookie(cookieString);
-                            MAIL mail = MailDao.Instance.GetInfo(Constancs.MAIL_ID_CHANGE_PASSWORD);
+                            MAIL mail = MailDao.Instance.GetInfo(Constants.MAIL_ID_CHANGE_PASSWORD);
                             String[] bodyTemp = mail.body.Split('-');
                             String body = bodyTemp[0] + " " + user.login_id + "<br>" + bodyTemp[1] + " " + model.newPass + "<br>Xin cám ơn bạn đã sử dụng dịch vụ của chúng tôi!";
-                            Services.SendMail(mail.from_address, user.mail, mail.subjects, body, "huanit1237");
+                            string key = Constants.KEY_ENCRYPT;
+                            string pass = WebConfigurationManager.AppSettings["KeyMail"];
+                            Services.SendMail(mail.from_address, user.mail, mail.subjects, body, Services.DecryptMessage(pass, key));
+
+                            // delete cookie and session
+                            Session.Clear();
+                            if (Request.Cookies[Constants.COOKIE_NAME] != null)
+                            {
+
+                                String cookie = GetCookieFromBowser(Constants.COOKIE_NAME);
+                                // delete cookie from db
+                                if (UserDao.Instance.DelCookie(cookie))
+                                {
+                                    DelCookieFromBrowser(Constants.COOKIE_NAME);
+                                }
+                            }
                             // Redirect to finish memnitor
                             return RedirectToAction("FishHome", "ChangePassword");
                         }
@@ -95,6 +106,16 @@ namespace BookStore.Controllers
             //If Cookie exists fetch its value.
             string values = nameCookie != null ? nameCookie.Value : "";
             return values;
+        }
+
+        private void DelCookieFromBrowser(String cookieName)
+        {
+            if (Request.Cookies[cookieName] != null)
+            {
+                Response.Cookies[cookieName].Expires = DateTime.Now.AddDays(-1);
+            }
+
+
         }
     }
 }

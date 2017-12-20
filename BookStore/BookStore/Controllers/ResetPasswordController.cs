@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace BookStore.Controllers
@@ -36,15 +37,18 @@ namespace BookStore.Controllers
                     Random rnd = new Random();
                     int randPass = rnd.Next(10000000, 99999999);
                     //hashing new password
-                    String newPassword = Services.Md5Hash(Constancs.SALT + randPass.ToString());
+                    String newPassword = Services.Md5Hash(Constants.SALT + randPass.ToString());
                     // update to db
                     if (UserDao.Instance.UpdateNewPassword(email, newPassword))
                     {
                         // send email
-                        MAIL mail = MailDao.Instance.GetInfo(Constancs.MAIL_ID_RESET_PASSWORD);
+                        MAIL mail = MailDao.Instance.GetInfo(Constants.MAIL_ID_RESET_PASSWORD);
                         String[] bodyTemp = mail.body.Split('-');
                         String body = bodyTemp[0] + " " + email + "<br>" + bodyTemp[1] + " " + randPass + "<br>Xin cám ơn bạn đã sử dụng dịch vụ của chúng tôi!";
-                        Services.SendMail(mail.from_address, email, mail.subjects, body, "huanit1237");
+
+                        string key = Constants.KEY_ENCRYPT;
+                        string pass = WebConfigurationManager.AppSettings["KeyMail"];
+                        Services.SendMail(mail.from_address, email, mail.subjects, body, Services.DecryptMessage(pass, key));
                         // Redirect to finish memnitor
                         return RedirectToAction("Index", "Login");
                     }

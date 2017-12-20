@@ -1,2 +1,22 @@
-﻿<h2>Hello everybody! i'm Home page</h2>
-<h3><a href="http://localhost:58650/ChangePassword/index">Change password</a></h3>
+﻿@*<h2>Hello everybody! i'm Home page</h2>
+<h3><a href="http://localhost:58650/ChangePassword/index">Change password</a></h3>*@
+
+<nav style="background-color:#FFFFFF !important;">
+    <a class="navbar-brand" href="#"><img src="~/Asset/images/Capture.png" /></a> WEB order service <a href="#">for distributors</a>
+    <ul style="float:right !important; list-style-type:none; margin-right: 2%">
+        <li class="navli"><a href="#"><strong>My page</strong></a></li>
+        <li class="navli"><a href="#"><strong>New Order Entry</strong></a></li>
+        <li class="navli"><a href="#"><strong>Order history modification cancellation</strong></a></li>
+        <li class="navli"><strong>@Html.ActionLink("Login password change", "Index", "ChangePassword") </strong></li>
+        <li class="navli"><strong>@Html.ActionLink("Logout", "Logout", "Login") </strong></li>
+        <li><small style="float:right">Co., Ltd. Sanrofuto like</small></li>
+    </ul>
+</nav>
+<div style="width:100%;height: 40px;background-color:#009dea;box-shadow:0 3px #39a0d2;">
+    <div style="color:white;"><img src="~/Content/Client/image/logo.png"><a>Logging password change</a></div>
+</div>
+    <div>
+        <center>
+            This is MY HOME.
+        </center>
+    </div>

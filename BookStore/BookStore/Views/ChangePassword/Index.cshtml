@@ -15,8 +15,10 @@
             <li class="navli"><a href="#"><strong>My page</strong></a></li>
             <li class="navli"><a href="#"><strong>New Order Entry</strong></a></li>
             <li class="navli"><a href="#"><strong>Order history modification cancellation</strong></a></li>
-            <li class="navli"><a href="#"><strong>Login password change </strong></a></li>
-            <li class="navli"><a href="#"><strong>Logout</strong></a></li>
+            @*<li class="navli"><a href="#"><strong>Login password change </strong></a></li>
+            <li class="navli"><a href="#"><strong>Logout</strong></a></li>*@
+            <li class="navli"><strong>@Html.ActionLink("Login password change", "Index", "ChangePassword") </strong></li>
+            <li class="navli"><strong>@Html.ActionLink("Logout", "Logout", "Login") </strong></li>
             <li><small style="float:right">Co., Ltd. Sanrofuto like</small></li>
         </ul>
     </nav>

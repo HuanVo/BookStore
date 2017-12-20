@@ -83,6 +83,27 @@ namespace DAO
                 ErrorLog.WriteLog(ex.Message);
             }
         }
+        /// <summary>
+        /// Check user by cookie
+        /// </summary>
+        /// <param name="cookieString"></param>
+        /// <returns></returns>
+        public bool IsUserByCookie(String cookieString)
+        {
+            try
+            {
+                var result = db.USERS.FirstOrDefault(x => x.loginkey == cookieString);
+                if (result != null)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.WriteLog(ex.Message);
+            }
+            return false;
+        }
 
         /// <summary>
         /// Check status number login fail
@@ -99,7 +120,7 @@ namespace DAO
                 DateTime otherDate = DateTime.Now.AddMinutes(-expiresTimeConfig);
                 var result = (from a in db.USERS
                               join b in db.CUSTOMERs on a.code_cst equals b.code_cst
-                              where b.dest_flg == 0 && a.dest_flg == 0 && a.login_id == loginId && a.date_login_error != null && a.cnt_login_error > cntLoginConfig && a.date_login_error > otherDate
+                              where b.dest_flg == 0 && a.dest_flg == 0 && a.login_id == loginId && a.date_login_error != null && a.cnt_login_error >= cntLoginConfig && a.date_login_error > otherDate
                               select a.code_cst).Count();
                 if (result > 0)
                     return true;
@@ -123,7 +144,8 @@ namespace DAO
                 if (check != null)
                 {
                     check.date_login_error = DateTime.Now;
-                    check.cnt_login_error = check.cnt_login_error + 1;
+                    if(check.cnt_login_error<6)
+                        check.cnt_login_error = check.cnt_login_error + 1;
                     db.SaveChanges();
                 }
             }
@@ -161,7 +183,7 @@ namespace DAO
         /// </summary>
         /// <param name="userName">id login user</param>
         /// <returns>get bool value</returns>
-        public bool IsUser(String userName)
+        public bool IsUserByUserName(String userName)
         {
             if (db.USERS.Where(x => x.login_id == userName).Count() > 0)
                 return true;
@@ -286,6 +308,25 @@ namespace DAO
             }
             return user;
 
+        }
+
+        public bool DelCookie(String cookieString)
+        {
+            try
+            {
+                var result = db.USERS.FirstOrDefault(x => x.loginkey == cookieString);
+                if (result != null)
+                {
+                    result.loginkey = null;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.WriteLog(ex.Message);
+            }
+            return false;
         }
 
     }
